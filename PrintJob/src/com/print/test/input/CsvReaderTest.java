@@ -15,7 +15,6 @@ public class CsvReaderTest {
 
 	  public void readsRecords() {
     	CsvFileReader csvReader = createCsvReader();
-        List<List<String>> records = csvReader.readRecords();
         
     }
 	  

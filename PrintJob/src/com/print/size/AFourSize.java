@@ -15,18 +15,18 @@ public class AFourSize implements PrintSize {
 		if (printPaper.isDoubleSided()) {
 			if (!(printPaper.getNumberOfPages().isEmpty() || printPaper
 					.getNumberOfColorPages().isEmpty())) {
-				printCost = Integer.valueOf(printPaper.getNumberOfPages())
+				printCost = Integer.valueOf(printPaper.getNumberOfPages().trim())
 						* .10
-						+ Integer.valueOf(printPaper.getNumberOfColorPages())
+						+ Integer.valueOf(printPaper.getNumberOfColorPages().trim())
 						* .20;
 			}
 
 		} else if (!printPaper.isDoubleSided()) {
 			if (!(printPaper.getNumberOfPages().isEmpty() || printPaper
 					.getNumberOfColorPages().isEmpty())) {
-				printCost = Integer.valueOf(printPaper.getNumberOfPages())
+				printCost = Integer.valueOf(printPaper.getNumberOfPages().trim())
 						* .15
-						+ Integer.valueOf(printPaper.getNumberOfColorPages())
+						+ Integer.valueOf(printPaper.getNumberOfColorPages().trim())
 						* .25;
 			}
 

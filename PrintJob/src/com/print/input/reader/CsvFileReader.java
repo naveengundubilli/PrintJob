@@ -49,25 +49,27 @@ public class CsvFileReader {
 			int lineNumber = 0;
 			double totalPrintCost = 0;
 			TableBuilder tableBuilder = new TableBuilder();
-			tableBuilder.addRow("TotalPages", "Color Pages", "Double Side",
+			tableBuilder.addRow("TotalPages", "ColorPages", "DoubleSide",
 					"Cost");
 			// read comma separated file line by line
 			while ((strLine = br.readLine()) != null) {
 				lineNumber++;
+				if (strLine.length() > 0) {
+					PrintJobParameters printJobParameters = createPrintParameter(strLine);
 
-				PrintJobParameters printJobParameters = createPrintParameter(strLine);
-
-				SizeFactory sizeFactory = new SizeFactory();
-				PrintSize size = sizeFactory.getSize(printSize);
-				totalPrintCost = totalPrintCost
-						+ size.calculateCostOfPrint(printJobParameters);
-				tableBuilder.addRow(printJobParameters.getNumberOfPages(),
-						printJobParameters.getNumberOfColorPages(),
-						String.valueOf(printJobParameters.isDoubleSided()));
-
+					SizeFactory sizeFactory = new SizeFactory();
+					PrintSize size = sizeFactory.getSize(printSize);
+					double perJobCost=size.calculateCostOfPrint(printJobParameters);
+					totalPrintCost = totalPrintCost
+							+ perJobCost;
+					tableBuilder.addRow(printJobParameters.getNumberOfPages(),
+							" "+printJobParameters.getNumberOfColorPages(),
+							" "+String.valueOf(printJobParameters.isDoubleSided()),String.valueOf(perJobCost));
+				}
 			}
 
 			tableBuilder.addRow("Total Cost", String.valueOf(totalPrintCost));
+			System.out.println(tableBuilder.toString());
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -83,6 +85,7 @@ public class CsvFileReader {
 		PrintJobParameters jobParameters = new PrintJobParameters();
 
 		jobParameters.setNumberOfPages(strLine.split(SEPARATOR)[0]);
+		System.out.println("This Line:" + jobParameters.getNumberOfPages());
 		jobParameters.setNumberOfColorPages(strLine.split(SEPARATOR)[1]);
 		jobParameters
 				.setDoubleSided(Boolean.valueOf(strLine.split(SEPARATOR)[2]));
