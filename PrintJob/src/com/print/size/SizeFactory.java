@@ -1,7 +1,7 @@
 package com.print.size;
 
 public class SizeFactory {
-	
+
 	public PrintSize getSize(String printSize) {
 		if (printSize == null) {
 			return null;

@@ -12,13 +12,14 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+import com.print.output.TableBuilder;
 import com.print.size.PrintJobParameters;
 import com.print.size.PrintSize;
 import com.print.size.SizeFactory;
 
 public class CsvFileReader {
 
-	private static final String SEPARATOR = ";";
+	private static final String SEPARATOR = ",";
 
 	private final Reader source;
 
@@ -27,35 +28,53 @@ public class CsvFileReader {
 	}
 
 	public static void main(String[] args) {
-		if (args.length > 0) {
-			File file = new File(args[0]);
-			try {
+		if (args.length > 0 && !(args[0].isEmpty() && args[1].isEmpty())) {
+			createOutput(args[0], args[1]);
+		}
 
-				BufferedReader br = new BufferedReader(new FileReader(file));
-				String strLine = "";
-				StringTokenizer st = null;
-				int lineNumber = 0;
-				double totalPrintCost = 0;
+	}
 
-				// read comma separated file line by line
-				while ((strLine = br.readLine()) != null) {
-					lineNumber++;
+	/**
+	 * 
+	 * @param inputFile
+	 * @param printSize
+	 */
+	private static void createOutput(String inputFile, String printSize) {
+		File file = new File(inputFile);
+		try {
 
-					PrintJobParameters printPaper = createPrintParameter(strLine);
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String strLine = "";
+			StringTokenizer st = null;
+			int lineNumber = 0;
+			double totalPrintCost = 0;
+			TableBuilder tableBuilder = new TableBuilder();
+			tableBuilder.addRow("TotalPages", "Color Pages", "Double Side",
+					"Cost");
+			// read comma separated file line by line
+			while ((strLine = br.readLine()) != null) {
+				lineNumber++;
 
-					SizeFactory sizeFactory = new SizeFactory();
-					PrintSize size = sizeFactory.getSize(args[1]);
-					size.calculateCostOfPrint(printPaper);
-				}
+				PrintJobParameters printJobParameters = createPrintParameter(strLine);
 
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				SizeFactory sizeFactory = new SizeFactory();
+				PrintSize size = sizeFactory.getSize(printSize);
+				totalPrintCost = totalPrintCost
+						+ size.calculateCostOfPrint(printJobParameters);
+				tableBuilder.addRow(printJobParameters.getNumberOfPages(),
+						printJobParameters.getNumberOfColorPages(),
+						String.valueOf(printJobParameters.isDoubleSided()));
+
 			}
 
+			tableBuilder.addRow("Total Cost", String.valueOf(totalPrintCost));
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -63,28 +82,11 @@ public class CsvFileReader {
 	private static PrintJobParameters createPrintParameter(String strLine) {
 		PrintJobParameters jobParameters = new PrintJobParameters();
 
-		jobParameters.setNumberOfPages(strLine.split(",")[0]);
-		jobParameters.setNumberOfColorPages(strLine.split(",")[1]);
-		jobParameters.setDoubleSided(Boolean.valueOf(strLine.split(",")[2]));
+		jobParameters.setNumberOfPages(strLine.split(SEPARATOR)[0]);
+		jobParameters.setNumberOfColorPages(strLine.split(SEPARATOR)[1]);
+		jobParameters
+				.setDoubleSided(Boolean.valueOf(strLine.split(SEPARATOR)[2]));
 		return jobParameters;
 	}
 
-	public List<String> readHeader() {
-		try (BufferedReader reader = new BufferedReader(source)) {
-			return reader.lines().findFirst()
-					.map(line -> Arrays.asList(line.split(SEPARATOR))).get();
-		} catch (IOException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
-
-	public List<List<String>> readRecords() {
-		try (BufferedReader reader = new BufferedReader(source)) {
-			return reader.lines()
-					.map(line -> Arrays.asList(line.split(SEPARATOR)))
-					.collect(Collectors.toList());
-		} catch (IOException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
 }
