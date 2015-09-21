@@ -21,12 +21,6 @@ public class CsvFileReader {
 
 	private static final String SEPARATOR = ",";
 
-	private final Reader source;
-
-	public CsvFileReader(Reader source) {
-		this.source = source;
-	}
-
 	public static void main(String[] args) {
 		if (args.length > 0 && !(args[0].isEmpty() && args[1].isEmpty())) {
 			createOutput(args[0], args[1]);
@@ -85,7 +79,6 @@ public class CsvFileReader {
 		PrintJobParameters jobParameters = new PrintJobParameters();
 
 		jobParameters.setNumberOfPages(strLine.split(SEPARATOR)[0]);
-		System.out.println("This Line:" + jobParameters.getNumberOfPages());
 		jobParameters.setNumberOfColorPages(strLine.split(SEPARATOR)[1]);
 		jobParameters
 				.setDoubleSided(Boolean.valueOf(strLine.split(SEPARATOR)[2]));
