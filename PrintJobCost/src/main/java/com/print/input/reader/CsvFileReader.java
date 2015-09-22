@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+import com.codetest.print.PrintJobParameters;
 import com.codetest.print.TableBuilder;
-import com.print.size.PrintJobParameters;
 import com.print.size.PrintSize;
 import com.print.size.factory.SizeFactory;
 

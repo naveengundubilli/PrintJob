@@ -1,5 +1,7 @@
 package com.print.size;
 
+import com.codetest.print.PrintJobParameters;
+
 public class AFourSize implements PrintSize {
 
 	/**
