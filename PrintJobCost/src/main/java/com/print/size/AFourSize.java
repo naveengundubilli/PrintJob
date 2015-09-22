@@ -3,6 +3,12 @@ package com.print.size;
 import com.codetest.print.PrintJobParameters;
 import com.print.exception.PrintException;
 
+/**
+ * Class containing the cost calculation logic for A4 Size
+ * 
+ * @author NaveenG
+ *
+ */
 public class AFourSize implements PrintSize {
 
 	/**

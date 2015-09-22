@@ -3,6 +3,12 @@ package com.codetest.print;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class for output formatting as a table
+ * 
+ * @author NaveenG
+ *
+ */
 public class TableBuilder {
 
 	List<String[]> rows = new LinkedList<String[]>();

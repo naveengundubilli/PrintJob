@@ -14,6 +14,12 @@ import com.print.exception.PrintException;
 import com.print.size.PrintSize;
 import com.print.size.factory.SizeFactory;
 
+/**
+ * Class to read CSV file provided
+ * 
+ * @author NaveenG
+ *
+ */
 public class CsvFileReader {
 
 	private static final String SEPARATOR = ",";
@@ -69,7 +75,7 @@ public class CsvFileReader {
 		}
 
 		tableBuilder.addRow("Total Cost",
-				String.valueOf(Math.round(totalPrintCost * 100d)/ 100d));
+				String.valueOf(Math.round(totalPrintCost * 100d) / 100d));
 		System.out.println(tableBuilder.toString());
 
 	}

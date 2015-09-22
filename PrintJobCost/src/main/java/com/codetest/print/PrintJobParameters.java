@@ -1,5 +1,12 @@
 package com.codetest.print;
 
+/**
+ * Pojo class for the print job values provided in each row
+ * 
+ * @author NaveenG
+ *
+ */
+
 public class PrintJobParameters {
 
 	private String numberOfPages;
