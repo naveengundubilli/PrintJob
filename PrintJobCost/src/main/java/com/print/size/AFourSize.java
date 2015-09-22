@@ -1,6 +1,7 @@
 package com.print.size;
 
 import com.codetest.print.PrintJobParameters;
+import com.print.exception.PrintException;
 
 public class AFourSize implements PrintSize {
 
@@ -10,32 +11,36 @@ public class AFourSize implements PrintSize {
 	 * @param printPaper
 	 * @return printCost
 	 */
-	public double calculateCostOfPrint(PrintJobParameters printPaper) {
+	public double calculateCostOfPrint(PrintJobParameters printPaper)
+			throws PrintException {
 		double printCost = 0;
 
-		if (printPaper.isDoubleSided()) {
-			if (!(printPaper.getNumberOfPages().isEmpty() || printPaper
-					.getNumberOfColorPages().isEmpty())) {
-				printCost = Integer.valueOf(printPaper.getNumberOfPages().trim())
-						* .10
-						+ Integer.valueOf(printPaper.getNumberOfColorPages().trim())
-						* .20;
-			}
+		if (!(printPaper.getNumberOfPages().isEmpty() || printPaper
+				.getNumberOfColorPages().isEmpty())) {
+			int numberOfNonColorPrints = Integer.valueOf(printPaper
+					.getNumberOfPages().trim())
+					- Integer
+							.valueOf(printPaper.getNumberOfColorPages().trim());
+			if (printPaper.isDoubleSided()) {
 
-		} else if (!printPaper.isDoubleSided()) {
-			if (!(printPaper.getNumberOfPages().isEmpty() || printPaper
-					.getNumberOfColorPages().isEmpty())) {
-				printCost = Integer.valueOf(printPaper.getNumberOfPages().trim())
-						* .15
-						+ Integer.valueOf(printPaper.getNumberOfColorPages().trim())
-						* .25;
+				printCost = Math
+						.round((numberOfNonColorPrints * .10 + Integer
+								.valueOf(printPaper.getNumberOfColorPages()
+										.trim()) * .20) * 100d) / 100d;
+			} else if (!printPaper.isDoubleSided()) {
+
+				printCost = Math
+						.round((numberOfNonColorPrints * .15 + Integer
+								.valueOf(printPaper.getNumberOfColorPages()
+										.trim()) * .25) * 100d) / 100d;
+			} else {
+				throw new PrintException(
+						"Please provide Double Sided Printing Value for proper Cost Calculation");
 			}
 
 		} else {
-			System.out
-					.println("Please provide Double Sided Printing Value for proper Cost Calculation");
+			throw new PrintException("Please check input parameters");
 		}
-		System.out.println();
 		return printCost;
 	}
 }
