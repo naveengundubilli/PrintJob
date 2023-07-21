@@ -1,0 +1,18 @@
+# File: existing-keycloak-values.yaml
+global:
+  identity:
+    keycloak:
+      url:
+        # This will produce the following URL "https://keycloak.stage.svc.cluster.local:8443".
+        # Also the host could be outside the Kubernetes cluster like "keycloak.stage.example.com".
+        protocol: "https"
+        host: "keycloak.stage.svc.cluster.local"
+        port: "8443"
+      auth:
+        adminUser: "admin"
+        existingSecret: "stage-keycloak"
+        existingSecretKey: "admin-password"
+
+identity:
+  keycloak:
+    enabled: false
