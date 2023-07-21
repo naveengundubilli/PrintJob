@@ -1,0 +1,48 @@
+# Chart values for the Camunda Platform 8 Helm chart in combined Ingress setup.
+
+# This file deliberately contains only the values that differ from the defaults.
+# For changes and documentation, use your favorite diff tool to compare it with:
+# https://github.com/camunda/camunda-platform-helm/blob/main/charts/camunda-platform
+
+# IMPORTANT: Make sure to change "camunda.example.com" to your domain.
+
+global:
+  ingress:
+    enabled: true
+    className: nginx
+    host: "camunda.example.com"
+  identity:
+    auth:
+      publicIssuerUrl: "https://camunda.example.com/auth/realms/camunda-platform"
+      operate:
+        redirectUrl: "https://camunda.example.com/operate"
+      tasklist:
+        redirectUrl: "https://camunda.example.com/tasklist"
+      optimize:
+        redirectUrl: "https://camunda.example.com/optimize"
+      webModeler:
+        redirectUrl: "https://camunda.example.com/modeler"
+
+identity:
+  contextPath: "/identity"
+  fullURL: "https://camunda.example.com/identity"
+
+operate:
+  contextPath: "/operate"
+
+optimize:
+  contextPath: "/optimize"
+
+tasklist:
+  contextPath: "/tasklist"
+
+webModeler:
+  # The context path is used for the web application that will be accessed by users in the browser.
+  # In addition, a WebSocket endpoint will be exposed on "[contextPath]-ws", e.g. "/modeler-ws".
+  contextPath: "/modeler"
+
+zeebe-gateway:
+  ingress:
+    enabled: true
+    className: nginx
+    host: "zeebe.camunda.example.com"
