@@ -10,22 +10,22 @@ global:
   ingress:
     enabled: true
     className: nginx
-    host: "camunda.example.com"
+    host: "camunda.sandbox.com"
   identity:
     auth:
-      publicIssuerUrl: "https://camunda.example.com/auth/realms/camunda-platform"
+      publicIssuerUrl: "https://camunda.sandbox.com/auth/realms/camunda-platform"
       operate:
-        redirectUrl: "https://camunda.example.com/operate"
+        redirectUrl: "https://camunda.sandbox.com/operate"
       tasklist:
-        redirectUrl: "https://camunda.example.com/tasklist"
+        redirectUrl: "https://camunda.sandbox.com/tasklist"
       optimize:
-        redirectUrl: "https://camunda.example.com/optimize"
+        redirectUrl: "https://camunda.sandbox.com/optimize"
       webModeler:
-        redirectUrl: "https://camunda.example.com/modeler"
+        redirectUrl: "https://camunda.sandbox.com/modeler"
 
 identity:
   contextPath: "/identity"
-  fullURL: "https://camunda.example.com/identity"
+  fullURL: "https://camunda.sandbox.com/identity"
 
 operate:
   contextPath: "/operate"
@@ -45,4 +45,4 @@ zeebe-gateway:
   ingress:
     enabled: true
     className: nginx
-    host: "zeebe.camunda.example.com"
+    host: "zeebe.camunda.sandbox.com"
