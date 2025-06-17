@@ -7,14 +7,34 @@
   <version>1.0</version>
   <name>PrintJobCost</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <junit.version>4.13.2</junit.version>
+    <slf4j.version>1.7.36</slf4j.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
   </dependencies>
+
   <repositories>
     <repository>
       <snapshots>
@@ -39,22 +59,19 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>C:\Code Test\PrintJobCost\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>C:\Code Test\PrintJobCost\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>C:\Code Test\PrintJobCost\src\test\java</testSourceDirectory>
-    <outputDirectory>C:\Code Test\PrintJobCost\target\classes</outputDirectory>
-    <testOutputDirectory>C:\Code Test\PrintJobCost\target\test-classes</testOutputDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <resources>
       <resource>
-        <directory>C:\Code Test\PrintJobCost\src\main\resources</directory>
+        <directory>src/main/resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>C:\Code Test\PrintJobCost\src\test\resources</directory>
+        <directory>src/test/resources</directory>
       </testResource>
     </testResources>
-    <directory>C:\Code Test\PrintJobCost\target</directory>
+    <directory>target</directory>
     <finalName>PrintJobCost-1.0</finalName>
     <pluginManagement>
       <plugins>
@@ -112,7 +129,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>default-jar</id>
@@ -123,16 +140,16 @@
           </execution>
         </executions>
         <configuration>
-	  <archive>
-	    <manifest>
-		<mainClass>com.print.input.reader.CsvFileReader</mainClass>
-	    </manifest>
-	  </archive>
-	</configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.print.input.reader.CsvFileReader</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.5.1</version>
+        <version>3.8.1</version>
         <executions>
           <execution>
             <id>default-compile</id>
@@ -149,10 +166,14 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.12.4</version>
+        <version>2.22.2</version>
         <executions>
           <execution>
             <id>default-test</id>
@@ -200,7 +221,7 @@
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>C:\Code Test\PrintJobCost\target\site</outputDirectory>
+              <outputDirectory>target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -216,7 +237,7 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>C:\Code Test\PrintJobCost\target\site</outputDirectory>
+              <outputDirectory>target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -227,7 +248,7 @@
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>C:\Code Test\PrintJobCost\target\site</outputDirectory>
+          <outputDirectory>target/site</outputDirectory>
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -239,6 +260,6 @@
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>C:\Code Test\PrintJobCost\target\site</outputDirectory>
+    <outputDirectory>target/site</outputDirectory>
   </reporting>
 </project>
